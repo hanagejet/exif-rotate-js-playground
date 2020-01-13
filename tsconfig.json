@@ -1,0 +1,10 @@
+{
+  "include": ["src/index.ts"],
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "sourceMap": true,
+    "lib": ["dom", "es2017"],
+    "strict": true
+  }
+}
