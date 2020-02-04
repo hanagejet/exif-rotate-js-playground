@@ -1,5 +1,11 @@
 {
-  "extends": [
-    "config:base"
-  ]
+  "extends": ["config:base"],
+  "patch": {
+    "automerge": true,
+    "groupName": "patch dependencies"
+  },
+  "minor": {
+    "automerge": true,
+    "groupName": "minor dependencies"
+  }
 }
