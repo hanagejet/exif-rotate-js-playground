@@ -1,0 +1,37 @@
+version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:10.18.1
+jobs:
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Configure Git
+          command: |
+            git config --global user.name 'CircleCI'
+            git config --global user.email 'taroage@gmail.com'
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Run deploy
+          command: npm run deploy
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - deploy:
+          requires:
+          filters:
+            branches:
+              only:
+                - master
